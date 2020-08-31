@@ -4,7 +4,7 @@
  * @Author: peiliang.wang
  * @Date: 2020-08-31 07:21:44
  * @LastEditors: peiliang.wang
- * @LastEditTime: 2020-08-31 10:53:28
+ * @LastEditTime: 2020-08-31 11:57:19
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +78,31 @@
     document.addEventListener('contextmenu', e => e.preventDefault())
 
     function path(map,start,end){
+        var queue = [start]
+        // 队列广度优先 ， 栈深度优先
 
+        function insert(x,y){
+            if(x < 0 || x >= 100 || y < 0 || y >= 100)
+                return
+            if(map[y * 100 +x])
+                return
+            map[y * 100 + x] = 2
+            queue.push([x,y])
+        }
+
+        while(queue.length){
+            let [x,y] = queue.shift()
+            console.log(x,y);
+
+            if(x === end[0] && y === end[1]){
+                return true
+            }
+            insert(x - 1 ,y)
+            insert(x, y - 1)
+            insert(x + 1, y)
+            insert(x, y + 1)
+            
+        }
     }
 
 </script>

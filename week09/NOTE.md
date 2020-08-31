@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: peiliang.wang
+ * @Date: 2020-07-05 17:27:16
+ * @LastEditors: peiliang.wang
+ * @LastEditTime: 2020-08-31 11:58:45
+-->
 
 ## TicTacToe
 * 使用二维数据划棋盘
@@ -16,3 +24,6 @@
 * async/await
     用于配合promise 来实现使用同步的方法调用异步的逻辑
 
+## 广度优先算法
+    使用队列来实现广度优先算法，
+    使用栈实现深度优先算法
