@@ -1,0 +1,63 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: peiliang.wang
+ * @Date: 2020-09-06 19:39:13
+ * @LastEditors: peiliang.wang
+ * @LastEditTime: 2020-09-06 20:49:44
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        const ReGexp = /([0-9\.]+)|([ \t]+)|([\r\n]+)|([\*])|(\/)|(\+)|(\-)/g
+
+        let dictionary = ['Number', "whitespace", 'LineTerminator', '*', '/', "+", "-"]
+
+        function* tokenize(source) {
+            let result = null
+            let lastIndex = 0
+
+            while (true) {
+                lastIndex = ReGexp.lastIndex
+                result = ReGexp.exec(source)
+
+                if (!result) break
+
+                if(ReGexp.lastIndex - lastIndex > result[0].length) break
+
+                let token = {
+                    tyoe:null,
+                    value:null
+                }
+
+                for (let i = 1; i <= dictionary.length; i++) {
+                    if (result[i]) {
+                        token.type = dictionary[i - 1]
+                    }
+                }
+                token.value = result[0]
+                yield token
+            }
+            yield {
+                type:"EOF",
+                value:''
+            }
+        }
+        
+        for(let token of tokenize('1024 * 10 * 25')){
+            console.log(token)
+        }
+
+    </script>
+</body>
+
+</html>

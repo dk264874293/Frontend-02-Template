@@ -4,7 +4,7 @@
  * @Author: peiliang.wang
  * @Date: 2020-08-31 07:21:44
  * @LastEditors: peiliang.wang
- * @LastEditTime: 2020-08-31 11:57:19
+ * @LastEditTime: 2020-09-01 18:57:27
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +34,37 @@
     <button onclick="localStorage['map'] = JSON.stringify(map)">save</button>
 </body>
 <script>
+
+    class Sorted {
+        constructor(data,compare){
+            this.data = data.slice()
+            this.compare = compare || ((a,b) => a - b)
+        }
+
+        take(){
+            if(!this.data.length)
+                return
+            let min = this.data[0]
+            let minIndex = 0
+
+            for(let i = 1; i < this.data.length; i++){
+                console.log(this.compare(this.data[i], min))
+                if(this.compare(this.data[i], min) < 0){
+                    min = this.data[i]
+                    minIndex = i
+                }
+            }
+
+            this.data[minIndex] = this.data[this.data.length - 1]
+            this.data.pop()
+            return min
+        }
+
+        give(v){
+            this.data.push(v)
+        }
+    }
+
     let map = localStorage['map'] ? JSON.parse(localStorage['map']) : Array(10000).fill(0)
 
     let container = document.getElementById('container')
@@ -77,30 +108,44 @@
 
     document.addEventListener('contextmenu', e => e.preventDefault())
 
-    function path(map,start,end){
-        var queue = [start]
+    function sleep(t){
+        return new Promise(function(resolve){
+            setTimeout(resolve,t)
+        })
+    }
+
+    function distance(point, end){
+        return (point[0] - end[0]) ** 2 + (point[1] = end[1]) ** 2
+    }
+
+    async function path(map,start,end){
+        var queue = new Sorted([start],(a,b) => distance(a, end) - distance(b, end))
+        // [start]
         // 队列广度优先 ， 栈深度优先
 
-        function insert(x,y){
+        async function insert(x,y){
             if(x < 0 || x >= 100 || y < 0 || y >= 100)
                 return
             if(map[y * 100 +x])
                 return
+            await sleep(20)
+            container.children[y * 100 + x].style.backgroundColor = 'lightgreen'
             map[y * 100 + x] = 2
-            queue.push([x,y])
+            // queue.push([x,y])
+            queue.give([x,y])
         }
 
-        while(queue.length){
-            let [x,y] = queue.shift()
-            console.log(x,y);
+        while(queue.data.length){
+            // let [x,y] = queue.shift()
+            let [x, y] = queue.take()
 
             if(x === end[0] && y === end[1]){
                 return true
             }
-            insert(x - 1 ,y)
-            insert(x, y - 1)
-            insert(x + 1, y)
-            insert(x, y + 1)
+            await insert(x - 1 ,y)
+            await insert(x, y - 1)
+            await insert(x + 1, y)
+            await insert(x, y + 1)
             
         }
     }
