@@ -4,7 +4,7 @@
  * @Author: peiliang.wang
  * @Date: 2020-09-07 17:52:05
  * @LastEditors: peiliang.wang
- * @LastEditTime: 2020-09-07 18:48:25
+ * @LastEditTime: 2020-09-08 10:16:39
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -37,16 +37,18 @@
                 let max = 0
                 let maxWord = null
                 let visit = (node,word) => {
-                    if(node.$ && node.$ > max){
-                        max = node.$
+                    if(node[$] && node[$] > max){
+                        max = node[$]
                         maxWord = word
                     }
                     for(let p in node){
                         visit(node[p], word + p)
                     }
                 }
+                console.log(this.root);
+                
                 visit(this.root,"")
-                console.log(maxWord);
+                console.log(maxWord, max);
             }
         }
 
