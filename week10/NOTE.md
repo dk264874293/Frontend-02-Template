@@ -4,7 +4,7 @@
  * @Author: peiliang.wang
  * @Date: 2020-07-05 17:27:16
  * @LastEditors: peiliang.wang
- * @LastEditTime: 2020-09-06 19:36:33
+ * @LastEditTime: 2020-09-07 17:46:40
 -->
 学习笔记
 
@@ -41,3 +41,18 @@ LL 语法分析
     <MultiplicativeExpression>
 
 ```
+
+## 字符串分析算法
+
+* 字典树
+    - 大量高重复字符串的存储与分析
+* KMP
+    - 在长字符串里找模式
+* Wildcard
+    - 带通配符的字符串模式
+* 正则
+    - 字符串通用模式匹配
+* 状态机
+    - 通用的字符串分析
+* LL LR
+    - 字符串多层级结构分析
