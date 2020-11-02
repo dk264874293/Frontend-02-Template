@@ -63,10 +63,10 @@ module.exports = class extends Generator {
       this.templatePath("main.js"),
       this.destinationPath("src/main.js")
     );
-     this.fs.copyTpl(
-       this.templatePath("index.html"),
-       this.destinationPath("src/index.html"),
-       {title:answer.name}
-     );
+    // this.fs.copyTpl(
+    //   this.templatePath("index.html"),
+    //   this.destinationPath("./src/index.html"),
+    //   { title:answer.name }
+    // );
   }
 };

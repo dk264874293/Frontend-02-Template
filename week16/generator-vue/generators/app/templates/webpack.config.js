@@ -3,7 +3,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 module.export = {
-  // entry: "./src/main.js",
+  entry: "./src/main.js",
   module: {
     rules: {
       rules: [

@@ -1,4 +1,4 @@
-import HelloWord from './HelloWord'
+import HelloWord from './HelloWord.vue'
 import Vue from 'Vue'
 
 new Vue({
